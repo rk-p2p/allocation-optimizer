@@ -42,7 +42,7 @@ query_success_patch = @patch function query(v, a, f)
     if v == "indexer"
         @info "query stub ==> simulating indexers"
         return [
-            Dict("delegatedTokens" => "1", "stakedTokens" => "10", "lockedTokens" => "100")
+            Dict("delegatedTokens" => "1", "stakedTokens" => "10", "lockedTokens" => "100", "tokenCapacity" => "10")
         ]
     end
     if v == "graphNetwork"

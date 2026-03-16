@@ -16,7 +16,7 @@
         id = "0xa"
         v, a, f = AllocationOpt.iquery(id)
         @test v == "indexer"
-        @test f == ["delegatedTokens", "stakedTokens", "lockedTokens"]
+        @test f == ["delegatedTokens", "stakedTokens", "lockedTokens", "tokenCapacity"]
         @test a == Dict{String,Union{Dict{String,String},String,Int64}}("id" => id)
     end
 
@@ -60,12 +60,13 @@
     @testset "correcttypes!" begin
         @testset "indexer" begin
             i = flextable([
-                Dict("stakedTokens" => "1", "delegatedTokens" => "0", "lockedTokens" => "0")
+                Dict("stakedTokens" => "1", "delegatedTokens" => "0", "lockedTokens" => "0", "tokenCapacity" => "1")
             ])
             AllocationOpt.correcttypes!(Val(:indexer), i)
             @test i.stakedTokens == [1e-18]
             @test i.delegatedTokens == [0]
             @test i.lockedTokens == [0]
+            @test i.tokenCapacity == [1e-18]
         end
 
         @testset "subgraph" begin
@@ -140,7 +141,7 @@
 
         @testset "all" begin
             i = flextable([
-                Dict("stakedTokens" => "1", "delegatedTokens" => "0", "lockedTokens" => "0")
+                Dict("stakedTokens" => "1", "delegatedTokens" => "0", "lockedTokens" => "0", "tokenCapacity" => "1")
             ])
             s = flextable([
                 Dict(

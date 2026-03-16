@@ -53,7 +53,7 @@
 
         @testset "indexer" begin
             x = flextable([
-                Dict("stakedTokens" => 10, "delegatedTokens" => 5, "lockedTokens" => 1)
+                Dict("stakedTokens" => 10, "delegatedTokens" => 5, "lockedTokens" => 1, "tokenCapacity" => 14)
             ])
             @test AllocationOpt.stake(Val(:indexer), x) == 10
             @test AllocationOpt.delegation(Val(:indexer), x) == 5
@@ -63,9 +63,9 @@
 
     @testset "availablestake" begin
         x = flextable([
-            Dict("stakedTokens" => 10, "delegatedTokens" => 20, "lockedTokens" => 5)
+            Dict("stakedTokens" => 10, "delegatedTokens" => 20, "lockedTokens" => 5, "tokenCapacity" => 22)
         ])
-        @test AllocationOpt.availablestake(Val(:indexer), x) == 25
+        @test AllocationOpt.availablestake(Val(:indexer), x) == 22
     end
 
     @testset "frozen" begin

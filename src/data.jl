@@ -40,7 +40,7 @@ For use with the TheGraphData.jl package.
 julia> using AllocationOpt
 julia> id = "0xa"
 julia> value, args, fields = AllocationOpt.iquery(id)
-("indexer", Dict{String, Union{Int64, Dict{String, String}, String}}("id" => "0xa"), ["delegatedTokens", "stakedTokens", "lockedTokens"])
+("indexer", Dict{String, Union{Int64, Dict{String, String}, String}}("id" => "0xa"), ["delegatedTokens", "stakedTokens", "lockedTokens", "tokenCapacity"])
 ```
 
 # Extended Help
@@ -49,7 +49,7 @@ You can find TheGraphData.jl at https://github.com/semiotic-ai/TheGraphData.jl
 function iquery(id::AbstractString)
     v = "indexer"
     a = Dict{String,Union{Dict{String,String},String,Int64}}("id" => id)
-    f = ["delegatedTokens", "stakedTokens", "lockedTokens"]
+    f = ["delegatedTokens", "stakedTokens", "lockedTokens", "tokenCapacity"]
     return v, a, f
 end
 
@@ -282,6 +282,7 @@ function correcttypes!(::Val{:indexer}, i::FlexTable)
     i.stakedTokens = i.stakedTokens .|> togrt
     i.delegatedTokens = i.delegatedTokens .|> togrt
     i.lockedTokens = i.lockedTokens .|> togrt
+    i.tokenCapacity = i.tokenCapacity .|> togrt
     return i
 end
 

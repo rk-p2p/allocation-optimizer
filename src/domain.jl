@@ -310,6 +310,9 @@ locked(::Val{:indexer}, x) = x.lockedTokens |> only
 
 The tokens available for the indexer to allocate in table `x`.
 
+Uses the on-chain `tokenCapacity` which correctly accounts for the delegation ratio cap
+and delegator thawing, rather than naively summing `stakedTokens + delegatedTokens - lockedTokens`.
+
 ```julia
 julia> using AllocationOpt
 julia> using TheGraphData
@@ -318,15 +321,15 @@ julia> x = flextable([
         "stakedTokens" => 10,
         "delegatedTokens" => 20,
         "lockedTokens" => 5,
+        "tokenCapacity" => 22,
     ),
 ])
 julia> AllocationOpt.availablestake(Val(:indexer), x)
-25.0
+22.0
 ```
 """
 function availablestake(::Val{:indexer}, x)
-    val = Val(:indexer)
-    return stake(val, x) + delegation(val, x) - locked(val, x)
+    return x.tokenCapacity |> only
 end
 
 """
