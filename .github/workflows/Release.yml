@@ -5,6 +5,11 @@ on:
     workflows: ["CI"]
     types: [completed]
 
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
 jobs:
   release:
     name: Release
@@ -12,7 +17,7 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v3
         env:
@@ -28,9 +33,4 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     steps:
-      - run: |
-          echo "Release skipped as previous stage failed."
-          curl \
-          -X POST \
-          -H "Accept: application/vnd.github.v3+json" \
-          https://api.github.com/repos/octocat/hello-world/actions/runs/42/cancel
+      - run: echo "Release skipped as previous stage failed."
