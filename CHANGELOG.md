@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.7.1](https://github.com/rk-p2p/allocation-optimizer/compare/v2.7.0...v2.7.1) (2026-03-16)
+
+
+### Bug Fixes
+
+* adjust workflows to fork ([9a0e8d4](https://github.com/rk-p2p/allocation-optimizer/commit/9a0e8d4f2c4052a97761e58031ef3b7e5d4b8237))
+* use tokenCapacity for available stake calculation ([8431a08](https://github.com/rk-p2p/allocation-optimizer/commit/8431a081bb9b35b2ca0ec9124c46cfac64f6b9ea))
+
 # [2.7.0](https://github.com/graphprotocol/allocation-optimizer/compare/v2.6.0...v2.7.0) (2024-06-18)
 
 
